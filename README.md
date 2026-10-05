@@ -1,5 +1,9 @@
 # Despliegue de aplicación multiservicio con Docker
 
+**Autor:** DIEGO MAURICIO GOMEZ RODRIGUEZ\
+**Usuario de GitHub:** Gomers16\
+**Programa:** Despliegue de aplicaciones y servicios en contenedores Docker (SENA, Regional Tolima)
+
 Proyecto de la formación complementaria **Despliegue de aplicaciones y servicios en contenedores Docker** (SENA, Centro de Comercio y Servicios, Regional Tolima, competencia 220501086).
 
 Una aplicación web de tres servicios, levantada con **un solo comando**:
@@ -11,6 +15,21 @@ Una aplicación web de tres servicios, levantada con **un solo comando**:
 | `db` | `postgres:18-alpine` | 5432 | Base de datos con volumen persistente. **No publica puertos.** |
 
 Ninguna imagen usa la etiqueta `latest`: el despliegue es reproducible.
+
+---
+
+## Lo desarrollado
+
+- Instalación de **Docker Engine 29.8.2** y Docker Compose v5.6.0 en Ubuntu sobre WSL2 (sin Docker Desktop).
+- **API en FastAPI** con los endpoints `/health` y `/db` (consulta a PostgreSQL).
+- **Dockerfile multi-etapa** con usuario sin privilegios (UID 1001).
+- **Nginx** como proxy inverso, único servicio expuesto (puerto 8080).
+- **PostgreSQL 18** con volumen persistente y sin puertos publicados.
+- **Docker Compose** con tres servicios, red interna, healthcheck y reinicio automático.
+- Variables sensibles en `.env` (no versionado) y plantilla `.env.example`.
+- **GitHub Actions** (`.github/workflows/publicar-imagen.yml`): construye y publica la imagen en GHCR con cada push a `main`, con etiquetas `latest` y `sha-...`.
+- Imagen pública: `ghcr.io/gomers16/docker-despliegue-sena`.
+- Pruebas realizadas desde un clon limpio: salud de la API, base de datos, red interna, aislamiento, persistencia y usuario sin privilegios.
 
 ---
 
@@ -548,4 +567,4 @@ Dos diferencias respecto a versiones anteriores, detectadas durante las pruebas:
 
 ## Licencia y autoría
 
-Proyecto formativo SENA, Centro de Comercio y Servicios, Regional Tolima. Autor: Diego Gómez (`Gomers16`).
+Proyecto formativo SENA, Centro de Comercio y Servicios, Regional Tolima. Autor: DIEGO MAURICIO GOMEZ RODRIGUEZ (`Gomers16`).
