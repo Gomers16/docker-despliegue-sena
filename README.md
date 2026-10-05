@@ -392,7 +392,7 @@ El total de los tres servicios es de aproximadamente 80 MiB, muy por debajo de l
 ### 8.6 Usuario sin privilegios
 
 ```bash
-docker run --rm api-app:1.0.0 id
+docker compose exec api id
 ```
 
 Debe mostrar `uid=1001(appuser)`, no `root`.
